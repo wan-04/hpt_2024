@@ -381,5 +381,4 @@ CHUNK B -> CHUNK A -> 0
 [security_checks](https://heap-exploitation.dhavalkapil.com/diving_into_glibc_heap/security_checks)
 
 #### Một số kỹ thuật nâng cao
-
-[heap](/task1_giai-doan-nang-cao/heap.md)
+- Một số kỹ thuật nâng cao em học được: [heap](/task1_giai-doan-nang-cao/heap.md)
