@@ -77,7 +77,7 @@ After:                                         v chunk malloc > top chunk
 ```
 
 - Sau khi ta tạo 1 unsorted bin, ta có thể leak libc, heap từ unsorted [link](https://github.com/nhtri2003gmail/CTFNote/tree/master/Heap-Exploitation)
-  ![https://github.com/nhtri2003gmail/CTFNote/tree/master/Heap-Exploitation](/bin/image.png)
+  ![https://github.com/nhtri2003gmail/CTFNote/tree/master/Heap-Exploitation](./bin/image.png)
 - Khi này nếu ta malloc thêm 1 chunk nữa sẽ báo lỗi (abort)
 - Khi call abort, nó sẽ xoá các file pointer bằng `_IO_flush_all_lockp -> _IO_list_all x> _IO_OVERFLOW (vtable)`
 - Nếu ta có thể thay đổi `_IO_list_all` thành system() or one_gadget
@@ -100,8 +100,8 @@ fp->_mode <= 0 && fp->_IO_write_ptr > fp->_IO_write_base
 
 ## Reference
 
-[how2heap](https://github.com/shellphish/how2heap/blob/master/glibc_2.23/house_of_orange.c)
-[CTF Wiki EN](https://ctf-wiki.mahaloz.re/pwn/linux/glibc-heap/house_of_orange/)
+- [how2heap](https://github.com/shellphish/how2heap/blob/master/glibc_2.23/house_of_orange.c)
+- [CTF Wiki EN](https://ctf-wiki.mahaloz.re/pwn/linux/glibc-heap/house_of_orange/)
 
 ---
 
@@ -132,7 +132,7 @@ unlink (off, p, bck, fwd);
 ```
 
 - Hiểu đơn giản là nếu bit inuse = 0, nó sẽ merge một lượng bằng presize phía bên trên.
-  ![Alt text](/bin/houseofEnherjar/image.png)
+  ![Alt text](./bin/houseofEnherjar/image.png)
 - Khi này nó có một số security check
   - Đầu tiên khi merge lên trên, khi này chunk cũ và phần được merge là 1 chunk, khi đó security check đầu tiên sẽ là check
   ```
@@ -140,12 +140,12 @@ unlink (off, p, bck, fwd);
       malloc_printerr ("corrupted size vs. prev_size");
   ```
   - Thứ hai là `P->fd->bk == P and P->bk->fd == P`
-    ![Alt text](/bin/houseofEnherjar/image-1.png)
+    ![Alt text](./bin/houseofEnherjar/image-1.png)
 
 ### Example
 
 - Giả sử ta setup như sau
-  ![Alt text](/bin/houseofEnherjar/image-2.png)
+  ![Alt text](./bin/houseofEnherjar/image-2.png)
 - Khi ta free chunk 1, free sẽ thấy bit inuse tắt, khi này nó sẽ unlink và mer với fake chunk và free, khi ấy chunk trong bin là chunk fake (chunk fake merge với chunk 1) và khi này ta có overlap chunk
 
 ---
