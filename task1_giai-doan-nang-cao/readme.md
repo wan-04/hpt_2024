@@ -17,8 +17,8 @@
 	- [Một số lab sử dụng ROP để bypass leak](#một-số-lab-sử-dụng-rop-để-bypass-leak)
 - [Advanced Heap Exploitation](#advanced-heap-exploitation)
 	- [Cơ chế hoạt động của heap](#hiểu-về-các-cơ-chế-hoạt-động-của-heap)
-	- []
-
+	- [Một số cơ chế bảo vệ](#một-số-cơ-chế-bảo-vệ)
+	- [Một số kỹ thuật nâng cao](#một-số-kỹ-thuật-nâng-cao)
 <h2 id = "bp-aslr">Bypass ASLR </h2>
 
 ### Cách ASLR hoạt động
@@ -380,6 +380,6 @@ CHUNK B -> CHUNK A -> 0
 
 [security_checks](https://heap-exploitation.dhavalkapil.com/diving_into_glibc_heap/security_checks)
 
-##### Một số kỹ thuật nâng cao
+#### Một số kỹ thuật nâng cao
 
 [heap](/task1_giai-doan-nang-cao/heap.md)
