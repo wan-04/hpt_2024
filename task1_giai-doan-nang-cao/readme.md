@@ -1,8 +1,27 @@
 # Giai đoạn nâng cao
 
-## Bypas ASLR
+## Mục lục
 
-#### Cách ASLR hoạt động
+- [Bypass ASLR](#bp-aslr)
+    - [Cách ASLR hoạt động](#cách-aslr-hoạt-động)
+	- [Một số kỹ thuật leak địa chỉ bộ nhớ](#một-số-kỹ-thuật-để-leak-địa-chỉ-bộ-nhớ)
+		- [Sử dụng kỹ thuật format string để leak](#sử-dụng-kỹ-thuật-format-string-để-leak)
+		- [Sử dụng kỹ thuật ROP để leak](#sử-dụng-kỹ-thuật-rop-để-leak)
+		- [Sử dụng kỹ thuật brute force](#sử-dụng-kỹ-thuật-brute-force)
+- [Bypass DEP/NX](#depnx-là-gì-và-cách-dep-hoạt-động)
+	- [DEP/NX là gì và cách DEP hoạt động](#depnx-là-gì-và-cách-dep-hoạt-động)
+	- [Bypass DEP bằng ROP](#bypass-depnx-bằng-rop)
+- [ROP (Return-Oriented Programming)](#rop-return-oriented-programming)
+	- [ROP là gì và được dùng khi nào?](#rop-là-gì-và-được-dùng-khi-nào)
+	- [Cách tạo chuỗi ROP để thực hiện tấn công](#cách-tạo-chuỗi-rop-để-thực-hiện-tấn-công)
+	- [Một số lab sử dụng ROP để bypass leak](#một-số-lab-sử-dụng-rop-để-bypass-leak)
+- [Advanced Heap Exploitation](#advanced-heap-exploitation)
+	- [Cơ chế hoạt động của heap](#hiểu-về-các-cơ-chế-hoạt-động-của-heap)
+	- []
+
+<h2 id = "bp-aslr">Bypass ASLR </h2>
+
+### Cách ASLR hoạt động
 
 - ASLR (Address space layout randomization) là sự sắp xếp ngẫu nhiên địa chỉ của chương trình, thư viện, stack và heap. Mục đích để ngăn chặn các kĩ thuật tấn công stack, heap và libc.
 - Vậy làm sao hệ thống có thể random? Việc randomized memory address được kernel thực thi, đây là source code [`/mm/util.c`](https://github.com/torvalds/linux/blob/master/mm/util.c#L368):
@@ -52,8 +71,7 @@ randomize_page(unsigned long start, unsigned long range)
 - Vùng nhớ bss, heap, libc, stack là các vùng nhớ khác nhau và có mỗi địa chỉ base của riêng vùng nhớ đó
 ```
 
-### Sử dụng các kỹ thuật như leak địa chỉ bộ nhớ
-
+### Một số kỹ thuật để leak địa chỉ bộ nhớ
 #### Sử dụng kỹ thuật format string để leak
 
 - Mục tiêu để bypass được ASLR là ta biết được một địa chỉ trong chương trình, sau đó tính ra `base address` của vùng nhớ đó. Demo một bug format string dùng để leak
@@ -128,7 +146,7 @@ Chương trình sẽ pop rdi và lấy từ stack ra là puts@got đang trỏ đ
 
 #### Sử dụng kỹ thuật brute force
 
-- Kỹ thuật này không thể leak như ROP, tuy nhiên trong một số trường hợp ta có thể brute force address base. Đối với 32 bit thì ổn khi ta cần brute 2.5 byte
+- Kỹ thuật này không thể leak như ROP, tuy nhiên trong một số trường hợp ta có thể brute force address base. Đối với 32 bit thì ổn khi ta cần brute 2.5 byte. Ví dụ 0x?????000 (? là các byte mình cần brute force)
 
 ---
 
@@ -359,6 +377,9 @@ CHUNK B -> CHUNK A -> 0
 ```
 
 ##### Một số cơ chế bảo vệ khác
+
 [security_checks](https://heap-exploitation.dhavalkapil.com/diving_into_glibc_heap/security_checks)
+
 ##### Một số kỹ thuật nâng cao
+
 [heap](/task1_giai-doan-nang-cao/heap.md)
